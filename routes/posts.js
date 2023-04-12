@@ -67,6 +67,16 @@ router.get('/userPosts/:id', verifyToken, async(req,res)=>{
 })
 
 
+router.delete('/deletePost/:id', async(req,res)=>{
+    try {
+        await PostModel.findByIdAndDelete({_id:req.params.id},req.body)
+        console.log('Post deleted')
+        res.json('Post deleted')
+    } catch (error) {
+        res.json(error)
+    }
+})
+
 
 
 
