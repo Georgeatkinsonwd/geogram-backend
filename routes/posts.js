@@ -4,6 +4,7 @@ import {PostModel} from '../models/Posts.js'
 import {UserModel} from '../models/Users.js'
 import {verifyToken} from './users.js'
 
+
 const router = express.Router()
 
 router.get('/', async(req,res) => {
@@ -76,6 +77,30 @@ router.delete('/deletePost/:id', async(req,res)=>{
         res.json(error)
     }
 })
+
+
+router.put('/increaseLike/:id', async(req,res)=>{
+    const post = await PostModel.findByIdAndUpdate({_id:req.params.id},req.body)
+    try {
+        const update = await PostModel.findOne({_id:req.params.id})
+        console.log('post liked')
+        res.json(update)
+    } catch (error) {
+        res.json(error)
+    }
+})
+
+router.put('/decreaseLike/:id', async(req,res)=>{
+    const post = await PostModel.findByIdAndUpdate({_id:req.params.id},req.body)
+    try {
+        const update = await PostModel.findOne({_id:req.params.id})
+        console.log('post liked')
+        res.json(update)
+    } catch (error) {
+        res.json(error)
+    }
+})
+
 
 
 
