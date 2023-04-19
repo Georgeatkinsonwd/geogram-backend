@@ -94,7 +94,7 @@ router.put('/decreaseLike/:id', async(req,res)=>{
     const post = await PostModel.findByIdAndUpdate({_id:req.params.id},req.body)
     try {
         const update = await PostModel.findOne({_id:req.params.id})
-        console.log('post liked')
+        console.log('liked removed')
         res.json(update)
     } catch (error) {
         res.json(error)
