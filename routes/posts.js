@@ -56,28 +56,33 @@ router.delete('/deletePost/:id', verifyToken, async(req,res)=>{
 })
 
 
-router.put('/increaseLike/:id', verifyToken, async(req,res)=>{
-    const post = await PostModel.findByIdAndUpdate({_id:req.params.id},req.body)
+
+
+router.put('/likePost/:id', verifyToken, async(req,res)=>{
+    const post = await PostModel.findById({_id:req.params.id},req.body)
+    const user = req.body.likedBy
     try {
+        post.likedBy.push(user)
+        await post.save()
         const update = await PostModel.findOne({_id:req.params.id})
-        console.log('post liked')
-        res.json(update)
+        res.status(201).json(update);
     } catch (error) {
         res.json(error)
     }
 })
 
-router.put('/decreaseLike/:id', verifyToken, async(req,res)=>{
-    const post = await PostModel.findByIdAndUpdate({_id:req.params.id},req.body)
+router.put('/removeLike/:id', verifyToken, async(req,res)=>{
+    const post = await PostModel.findById({_id:req.params.id},req.body)
+    const user = req.body.likedBy
     try {
+        post.likedBy.pull({_id: user})
+        await post.save()
         const update = await PostModel.findOne({_id:req.params.id})
-        console.log('liked removed')
-        res.json(update)
+        res.status(201).json(update);
     } catch (error) {
         res.json(error)
     }
 })
-
 
 
 
