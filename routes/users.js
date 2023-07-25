@@ -5,6 +5,19 @@ import {UserModel} from '../models/Users.js'
 const router = express.Router()
 
 
+router.get('/getUsername/:id', async(req,res)=>{
+    const user = await UserModel.findById({ _id: req.params.id });
+    
+    try{
+        res.json(user.username)
+    }
+    catch(error){
+        console.log(error)
+    }
+    
+})
+
+
 router.post('/register', async (req,res) => {
     const {username, password} = req.body
 

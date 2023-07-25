@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    likedPosts: [{type: mongoose.Schema.Types.ObjectId, ref: "posts"}]
+   
 })
 
 export const UserModel = mongoose.model("users", UserSchema)
