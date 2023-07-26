@@ -18,21 +18,40 @@ router.get('/getUsername/:id', async(req,res)=>{
 })
 
 
+
+
+router.get('/getUsers', async(req,res)=>{
+    const users = await UserModel.find({})
+    try{
+        res.json(users)
+    }
+    catch(error){
+        console.log(error)
+    }
+    
+})
+
+
 router.post('/register', async (req,res) => {
     const {username, password} = req.body
 
     const user = await UserModel.findOne({username}) 
-
+  
     if (user) {
-        return res.json({message: 'User already exists'})
+        return res.json({message: 'User already exists, please choose a different name'})
     }
 
+
+    else if(!user){
     const hashedPassword = await bcrypt.hash(password, 10)
 
     const newUser = new UserModel({username, password: hashedPassword})
     await newUser.save()
 
-    res.json({message: 'User registration successful'})
+    res.json({message: 'Registration complete, please log in'})
+    }
+
+    
 
 })
 
