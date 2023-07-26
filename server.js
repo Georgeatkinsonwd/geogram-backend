@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import {userRouter} from './routes/users.js'
 import {postsRouter} from './routes/posts.js'
+const PORT = process.env.PORT || 3000
 
 const app = express()
 
@@ -41,7 +42,7 @@ app.use("/posts", postsRouter)
 //   })
 
 connectDB().then(() => {
-  app.listen(process.env.PORT, () => {
-      console.log("listening for requests");
+  app.listen(PORT, () => {
+      console.log(`listening for requests on PORT ${PORT}`)
   })
 })
