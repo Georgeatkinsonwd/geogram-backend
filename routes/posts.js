@@ -11,10 +11,12 @@ router.get('/', async(req,res) => {
     try {
         const response = await PostModel.find({})
         res.json(response)
+        
 
 
     } catch (error) {
         res.json(error)
+        
     }
 })
 
